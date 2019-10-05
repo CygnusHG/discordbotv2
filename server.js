@@ -91,7 +91,7 @@ client.on('message', async message => {
             const complete = new Discord.MessageEmbed()
                 .setColor(0x39363e)
                 .setAuthor(`Hey ${supportUser.tag}`, supportUser.displayAvatarURL())
-                .setFooter('Ticket Closed -- Toxic Romania')
+                .setFooter('Ticket Closed -- test server')
                 .setDescription('*Your ticket has been marked as **complete**. If you wish to reopen this, or create a new one, please send a message to the bot.*')
    
             supportUser.send(complete);
@@ -104,7 +104,7 @@ client.on('message', async message => {
         const embed = new Discord.RichEmbed()
             .setColor(0x36393e)
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setFooter(`Message Recieved -- Toxic Romania`)
+            .setFooter(`Message Recieved -- test server`)
             .setDescription(message.content)
 
         client.users.get(support.targetID).send(embed)
@@ -141,4 +141,4 @@ client.on('message', async message => {
 
 client.on('ready', () => console.log('Bot Launched!'));
 
-client.login('NTk1MjI1MTk3NzYyODM4NTI4.XRuG4g.lIlE6z_bQvEWAOWcV2pJBBq_lt0');
+client.login('insert token here');
