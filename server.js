@@ -14,7 +14,7 @@ client.on('message', async message => {
 
         let active = await db.get(`support_${message.author.id}`);
 
-        let guild = client.guilds.get('593548352373915679');
+        let guild = client.guilds.cache.get('593548352373915679');
 
         let channel, found = true;
 
@@ -53,10 +53,10 @@ client.on('message', async message => {
             await author.send(newTicket);
  
             active.channelID = channel.id;
-            active.targetID = author.tag;
+            active.targetID = author.id;
         }
  
-        channel = client.channels.get(active.channelID);
+        channel = client.channels.cache.get(active.channelID);
  
         const dm = new Discord.MessageEmbed()
         .setColor(0x36393e)
@@ -71,7 +71,7 @@ client.on('message', async message => {
             .setDescription(message.content)
             .setFooter(`Message Recieved -- ${message.author.tag}`)
  
-        await message.author.send(embed);
+        await channel.send(embed);
  
         db.set(`support_${message.author.id}`, active);
         db.set(`supportChannel_${channel.id}`, message.author.id);
@@ -84,27 +84,27 @@ client.on('message', async message => {
  
         support = await db.get(`support_${support}`);
  
-        let supportUser = client.users.get(support.targetID);
+        let supportUser = client.channels.cache.get(support.targetID);
         if (!supportUser) return message.channel.delete();
  
         if (message.content.toLowerCase() === '!complete') {
             const complete = new Discord.MessageEmbed()
                 .setColor(0x39363e)
                 .setAuthor(`Hey ${supportUser.tag}`, supportUser.displayAvatarURL())
-                .setFooter('Ticket Closed -- test server')
+                .setFooter('Ticket Closed -- Cygnus')
                 .setDescription('*Your ticket has been marked as **complete**. If you wish to reopen this, or create a new one, please send a message to the bot.*')
    
             supportUser.send(complete);
  
             message.channel.delete();
  
-            db.delete(`support_${support,targetID}`);
+            db.delete(`support_${support.targetID}`);
         }
 
         const embed = new Discord.RichEmbed()
             .setColor(0x36393e)
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setFooter(`Message Recieved -- test server`)
+            .setFooter(`Message Recieved -- Cygnus`)
             .setDescription(message.content)
 
         client.users.get(support.targetID).send(embed)
@@ -141,4 +141,4 @@ client.on('message', async message => {
 
 client.on('ready', () => console.log('Bot Launched!'));
 
-client.login('insert token here');
+client.login('token here');
