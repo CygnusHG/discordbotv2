@@ -91,7 +91,7 @@ client.on('message', async message => {
             const complete = new Discord.MessageEmbed()
                 .setColor(0x39363e)
                 .setAuthor(`Hey ${supportUser.tag}`, supportUser.displayAvatarURL())
-                .setFooter('Ticket Closed -- Cygnus')
+                .setFooter('Ticket Closed --')
                 .setDescription('*Your ticket has been marked as **complete**. If you wish to reopen this, or create a new one, please send a message to the bot.*')
    
             supportUser.send(complete);
@@ -101,13 +101,13 @@ client.on('message', async message => {
             db.delete(`support_${support.targetID}`);
         }
 
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setColor(0x36393e)
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
-            .setFooter(`Message Recieved -- Cygnus`)
+            .setFooter(`Message Recieved --`)
             .setDescription(message.content)
 
-        client.users.get(support.targetID).send(embed)
+            client.users.cache.get(support.targetID).send(embed)
 
         message.delete({timeout: 1000});
 
