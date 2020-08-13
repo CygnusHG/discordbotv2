@@ -85,12 +85,12 @@ client.on('message', async message => {
         support = await db.get(`support_${support}`);
  
         let supportUser = client.channels.cache.get(support.targetID);
-        if (!supportUser) return message.channel.delete();
+        //if (!supportUser) return message.channel.delete(); //makes errors, more exactly deletes channel when you respond
  
         if (message.content.toLowerCase() === '!complete') {
             const complete = new Discord.MessageEmbed()
                 .setColor(0x39363e)
-                .setAuthor(`Hey ${supportUser.tag}`, supportUser.displayAvatarURL())
+                .setAuthor(`Hey ${supportUser.tag}`, supportUser.displayAvatarURL())  //supportUser.tag doesn't work, just gives errors neither supportUser.displayAvatarURL()
                 .setFooter('Ticket Closed --')
                 .setDescription('*Your ticket has been marked as **complete**. If you wish to reopen this, or create a new one, please send a message to the bot.*')
    
@@ -111,7 +111,7 @@ client.on('message', async message => {
 
         message.delete({timeout: 1000});
 
-        embed.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content);
+        embed.setFooter(`Message Sent -- ${supportUser.tag}`).setDescription(message.content); // same here supportUser.tag doesn't work, just gives errors again
 
         return message.channel.send(embed);
 
